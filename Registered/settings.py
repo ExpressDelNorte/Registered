@@ -25,7 +25,7 @@ SECRET_KEY = 'swjo-%fx-h!9q#lkbj@pm2qpsua*_34#4gh*rp6k6f+yrh=#bf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','*']
 
 
 # Application definition
@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'empresa',
+    'operacion',
+    'usuario',
+    'cuser',
+    'nested_admin',
 ]
 
 MIDDLEWARE = [
@@ -75,9 +80,13 @@ WSGI_APPLICATION = 'Registered.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'register',
+        'USER': 'postgres',
+        'PASSWORD': '123456',
+        'HOST': '127.0.0.1',
+        'POST': '5432'
+    },
 }
 
 
@@ -103,9 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-la'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 
@@ -118,3 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/dark/express/Register/static/'
+MEDIA_URL = '/media/'
+HOST_MEDIA = '/home/dark/express/Register/media/'
+MEDIA_ROOT = '/home/dark/express/Register/media/'
