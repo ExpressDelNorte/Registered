@@ -24,7 +24,7 @@ class CalendarioAdmin(admin.ModelAdmin):
 
 
 class ConfiguracionAdmin(admin.ModelAdmin):
-    list_display = ['empresa','ordinario','fincho','festivos']
+    list_display = ['empresa','ordinario','fincho']
     form = forms.ConfiguracionForm
 #end class
 

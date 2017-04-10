@@ -10,7 +10,6 @@ class Configuracion(models.Model):
     empresa = models.ForeignKey(empresa.Empresa)
     ordinario = models.FloatField()
     fincho = models.FloatField()
-    festivos = models.FloatField()
     estado = models.BooleanField(default=True)
 
     def __unicode__(self):
