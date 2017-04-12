@@ -8,8 +8,23 @@ from django.contrib.auth.decorators import login_required
     url(r'logout/$', views.custom_logout, {'next_page': '/', }, name='user-logout'),
 ]'''
 
-#formularios
-
+#formularios configuracion
 urlpatterns = [
     url(r'add/configuracion/$',login_required(views.AddConfiguracion.as_view()) ,name='add-conf'),
+    url(r'edit/configuracion/(?P<pk>\d)/$',login_required(views.AddConfiguracion.as_view()) ,name='add-conf'),
+    url(r'list/configuracion/$',login_required(views.ListConfiguracion.as_view()) ,name='add-conf'),
+]
+
+
+#formularios configuracion
+urlpatterns += [
+    url(r'add/labor/$',login_required(views.AddLabor.as_view()) ,name='add_labor'),
+    url(r'edit/labor/(?P<pk>\d)/$',login_required(views.EditLabor.as_view()) ,name='edit_labor'),
+    url(r'list/labor/$',login_required(views.ListLabor.as_view()) ,name='list_labor'),
+]
+
+
+#empleado
+urlpatterns += [
+    url(r'login/empleado/$',login_required(views.LoginEmpleado.as_view()) ,name='login_empleado'),
 ]

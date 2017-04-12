@@ -48,6 +48,43 @@ class EmpresaEditForm(forms.ModelForm):
     # end class
 #end class
 
+
+class SupervisorForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super(SupervisorForm, self).__init__(*args, **kwargs)
+        self.fields['password1'].label = "Contraseña"
+        self.fields['password2'].label = "Confirmar contraseña"
+        self.fields['email'].label = "Correo Electrtónico"
+        self.fields['first_name'].label = "Nombre"
+        self.fields['telefono'].widget = forms.NumberInput()
+    # end def
+
+    class Meta:
+        model = models.Supervisor
+        fields = ['username', 'password1', 'password2', 'identificacion', 'first_name','last_name',
+         'direccion','celular', 'telefono', 'ciudad','email']
+        exclude = []
+    # end class
+#end class
+
+
+class SupervisorEditForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super( SupervisorEditForm, self).__init__(*args, **kwargs)
+        self.fields['email'].label = "Correo Electrtónico"
+        self.fields['first_name'].label = "Nombre"
+        self.fields['last_name'].label = "Apellidos"
+        self.fields['telefono'].widget = forms.NumberInput()
+    # end def
+
+    class Meta:
+        model = models.Supervisor
+        fields = ['username','identificacion', 'first_name','last_name',
+         'direccion','celular', 'telefono', 'ciudad','email']
+        exclude = ['password1', 'password2',]
+    # end class
+#end class
+
 class TiendaForm(forms.ModelForm):
     class Meta:
         model = models.Tienda

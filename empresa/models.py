@@ -50,6 +50,29 @@ class Empresa(User):
 # end clas
 
 
+class Supervisor(User):
+    telefono = models.CharField(max_length=10, null=True, blank=True)
+    identificacion = models.CharField(max_length=15, null=True, blank=True)
+    celular = models.CharField(max_length=10, null=True, blank=True)
+    direccion = models.CharField(max_length=50)
+    ciudad = models.ForeignKey(Ciudad)
+    empresas = models.ManyToManyField(Empresa)
+    active = models.BooleanField(default=True)
+
+    def __unicode__(self):
+        return u'%s %s'%(self.first_name,self.last_name)
+    # end def
+
+    def __str__(self):
+        return u'%s %s'%(self.first_name,self.last_name)
+    # end def
+
+    class Meta:
+        verbose_name = 'Administrador'
+        verbose_name_plural = 'Administradores'
+#end class
+
+
 class Tienda(models.Model):
     empresa = models.ForeignKey(Empresa)
     ciudad = models.ForeignKey(Ciudad)

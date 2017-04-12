@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from empresa import models as emp
 # Create your models here.
 
+
 class Documento(models.Model):
     nombre = models.CharField(max_length=30)
     descripcion = models.CharField(max_length=200, null=True, blank=True)

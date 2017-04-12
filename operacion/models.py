@@ -71,6 +71,7 @@ class Labor(models.Model):
     ini = models.DateTimeField(blank=True,null=True, editable=True)
     fin = models.DateTimeField(blank=True,null=True)
     estado = models.BooleanField(default=True)
+    cerrado = models.BooleanField(default=False)
 
     def __unicode__(self):
         return u'%s %s'%(self.empleado.first_name,self.empleado.last_name)
