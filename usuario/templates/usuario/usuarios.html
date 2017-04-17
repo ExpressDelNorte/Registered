@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% block javascript %}
   <script type="text/javascript" src="{% static 'usuario/js/empleados.js' %}"></script>
+  <script type="text/javascript" src="{% static 'usuario/js/addempleado.js' %}"></script>
 {% endblock %}
 {% block css %}
   <link rel="stylesheet" href="{% static 'usuario/css/empleado.css' %}">
@@ -73,7 +74,7 @@
 {% endblock %}
 {% block dialogos %}
 <!-- Modal Structure -->
-  <div id="modal1" class="modal modal-fixed-footer">
+  <div id="addempleado" class="modal modal-fixed-footer">
     <div class="modal-content">
       <h4>Modal Header</h4>
       <p>A bunch of text</p>
