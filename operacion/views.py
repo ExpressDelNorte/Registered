@@ -85,26 +85,6 @@ class ListLabor(supra.SupraListView):
 # end class
 
 
-class LoginEmpleado(View):
-    @method_decorator(csrf_exempt)
-    def dispatch(self, *args, **kwargs):
-        return super(LoginEmpleado, self).dispatch(*args, **kwargs)
-    # end def
-
-    def get(self, request, *args, **kwargs):
-        username = request.GET.get('user', False)
-        passw = request.GET.get('pass', False)
-        if username and passw:
-            user = authenticate(username=username, password=passw)
-            if user is not None:
-                return HttpResponse('[{"status":true}]', content_type='application/json', status=200)
-            # end if
-        # end if
-        return HttpResponse('[{"status":false}]', content_type='application/json', status=202)
-    # end def
-# end class
-
-
 class EditLabor(View):
     @method_decorator(csrf_exempt)
     def dispatch(self, *args, **kwargs):
@@ -122,6 +102,31 @@ class EditLabor(View):
                 print 2
                 lab.cerrado=True
                 lab.fin = timezone.now()
+                lab.save()
+                return HttpResponse('[{"status":true}]', content_type='application/json', status=200)
+            # end if
+        # end if
+        print 3
+        return HttpResponse('[{"status":false}]', content_type='application/json', status=202)
+    # end def
+# end class
+
+
+class DeleteLabor(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super(DeleteLabor, self).dispatch(*args, **kwargs)
+    # end def
+
+    def get(self, request, *args, **kwargs):
+        print request,kwargs
+        labor=kwargs['pk']
+        if labor:
+            print 1
+            lab = models.Labor.objects.filter(id=labor).first()
+            if lab:
+                print 2
+                lab.estado=False
                 lab.save()
                 return HttpResponse('[{"status":true}]', content_type='application/json', status=200)
             # end if

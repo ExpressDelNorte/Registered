@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'usuario',
     'cuser',
     'nested_admin',
+    'Registered',
 ]
 
 MIDDLEWARE = [
@@ -128,7 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/dark/express/Register/static/'
+STATIC_ROOT = '/home/dark/express/Registered/static/'
 MEDIA_URL = '/media/'
-HOST_MEDIA = '/home/dark/express/Register/media/'
-MEDIA_ROOT = '/home/dark/express/Register/media/'
+HOST_MEDIA = '/home/dark/express/Registered/media/'
+MEDIA_ROOT = '/home/dark/express/Registered/media/'

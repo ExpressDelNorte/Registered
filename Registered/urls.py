@@ -20,4 +20,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^nested_admin/', include('nested_admin.urls')),
     url(r'^operacion/', include('operacion.urls',namespace='operacion')),
+    url(r'^usuario/', include('usuario.urls',namespace='usuario')),
+    url(r'^empresa/', include('empresa.urls',namespace='empresa')),
 ]

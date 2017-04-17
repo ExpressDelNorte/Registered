@@ -57,12 +57,13 @@ class SupervisorForm(UserCreationForm):
         self.fields['email'].label = "Correo Electrtónico"
         self.fields['first_name'].label = "Nombre"
         self.fields['telefono'].widget = forms.NumberInput()
+        self.fields['empresas'].queryset = models.Empresa.objects.all()
     # end def
 
     class Meta:
         model = models.Supervisor
         fields = ['username', 'password1', 'password2', 'identificacion', 'first_name','last_name',
-         'direccion','celular', 'telefono', 'ciudad','email']
+         'direccion','celular', 'telefono', 'ciudad','email','empresas']
         exclude = []
     # end class
 #end class
@@ -75,12 +76,13 @@ class SupervisorEditForm(forms.ModelForm):
         self.fields['first_name'].label = "Nombre"
         self.fields['last_name'].label = "Apellidos"
         self.fields['telefono'].widget = forms.NumberInput()
+        self.fields['empresas'].queryset = models.Empresa.objects.all()
     # end def
 
     class Meta:
         model = models.Supervisor
         fields = ['username','identificacion', 'first_name','last_name',
-         'direccion','celular', 'telefono', 'ciudad','email']
+         'direccion','celular', 'telefono', 'ciudad','email','empresas']
         exclude = ['password1', 'password2',]
     # end class
 #end class

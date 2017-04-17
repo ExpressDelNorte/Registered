@@ -20,11 +20,6 @@ urlpatterns = [
 urlpatterns += [
     url(r'add/labor/$',login_required(views.AddLabor.as_view()) ,name='add_labor'),
     url(r'edit/labor/(?P<pk>\d)/$',login_required(views.EditLabor.as_view()) ,name='edit_labor'),
+    url(r'delete/labor/(?P<pk>\d)/$',login_required(views.DeleteLabor.as_view()) ,name='delete_labor'),
     url(r'list/labor/$',login_required(views.ListLabor.as_view()) ,name='list_labor'),
-]
-
-
-#empleado
-urlpatterns += [
-    url(r'login/empleado/$',login_required(views.LoginEmpleado.as_view()) ,name='login_empleado'),
 ]
