@@ -28,7 +28,21 @@ class EmpleadoAdmin(admin.ModelAdmin):
 #end class
 
 
+class AdministradorAdmin(admin.ModelAdmin):
+    list_display = ['identificacion','first_name','direccion','tienda']
+    form = forms.AdministradorForm
+
+    def get_form(self, request, obj=None, *args, **kwargs):
+        if obj:
+            kwargs['form'] = forms.AdministradorEditForm
+        # end if
+        return super(AdministradorAdmin, self).get_form(request, obj, *args, **kwargs)
+    # end def
+#end class
+
+
 # Register your models here.
 admin.site.register(models.Documento, DocumentoAdmin)
 admin.site.register(models.Cargo, CargoAdmin)
 admin.site.register(models.Empleado, EmpleadoAdmin)
+admin.site.register(models.Administrador, AdministradorAdmin)

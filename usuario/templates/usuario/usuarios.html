@@ -68,7 +68,7 @@
 </tbody>
 {% endblock %}
 {% block botones %}
-<a class="btn-floating btn-large waves-effect waves-light orange darken-3 addempleado" href="/usuario/add/empleado/"><i class="material-icons ">add</i></a>
+<a class="btn-floating btn-large waves-effect waves-light orange darken-3 addempleado" href="/operacion/add/labor/"><i class="material-icons ">add</i></a>
 {% endblock %}
 {% block paginacion %}
 {% endblock %}
@@ -76,13 +76,14 @@
 <!-- Modal Structure -->
   <div id="addempleado" class="modal modal-fixed-footer">
     <div class="modal-content">
-      <h4>Registrar Trabajador</h4>
+      <h4>Registrar Tiempo</h4>
       <div id="contenido">
 
       </div>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat addlabor">Agregar</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat cancelarlabor">Cancelar</a>
     </div>
   </div>
 {% endblock %}

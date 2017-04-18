@@ -23,3 +23,9 @@ urlpatterns += [
     url(r'delete/labor/(?P<pk>\d)/$',login_required(views.DeleteLabor.as_view()) ,name='delete_labor'),
     url(r'list/labor/$',login_required(views.ListLabor.as_view()) ,name='list_labor'),
 ]
+
+#funcionalidad de adicional labor
+urlpatterns += [
+    url(r'labores/$',login_required(views.Labores.as_view()) ,name='labores'),
+    url(r'ws/labor/$',login_required(views.AddWsLabor.as_view()) ,name='ws_labor'),
+]

@@ -79,3 +79,24 @@ class Empleado(Usuario):
         verbose_name_plural = "Empleados"
     #end class
 #end class
+
+
+class Administrador(Usuario):
+    tienda = models.ForeignKey(emp.Tienda)
+    direccion = models.CharField(max_length=50, null=True, blank=True)
+    fecha_nacimiento = models.DateField(null=True, blank=True)
+    foto = models.ImageField(upload_to='administrador/', null=True, blank=True)
+
+    def __unicode__(self):
+        return u'%s %s'%(self.first_name,self.last_name)
+    #end def
+
+    def __str__(self):
+        return u'%s %s'%(self.first_name,self.last_name)
+    #end def
+
+    class Meta:
+        verbose_name = "Administrador Tienda"
+        verbose_name_plural = "Administradore de Tienda"
+    #end class
+#end class

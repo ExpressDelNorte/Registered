@@ -16,6 +16,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect, get_object_or_404, HttpResponse
 from empresa import models as empresa
 from django.utils import timezone
+from usuario import models as usuario
 
 
 # Create your views here.
@@ -66,16 +67,29 @@ class AddLabor(supra.SupraFormView):
 class ListLabor(supra.SupraListView):
     model = models.Labor
     search_key = 'q'
-    list_display = ['id','empleado','ini']
+    list_display = ['id','empleado','ini','nombre','apellidos','identificacion','id_emp','tiempo','servicios']
     search_fields = ['id']
     paginate_by = 10
+
+    class Renderer:
+        nombre = 'empleado__first_name'
+        apellidos = 'empleado__last_name'
+        identificacion = 'empleado__identificacion'
+        id_emp = 'empleado__id'
+    # end class
+
+    def servicios(self, obj, row):
+        edit = "/operacion/edit/labor/%d/" % (obj.id)
+        return {'edit': edit}
+    # end def
 
     def get_queryset(self):
         queryset = super(ListLabor, self).get_queryset()
         user = CuserMiddleware.get_user()
-        tienda = empresa.Tienda.objects.filter(empleado__user_ptr_id=user.id).first()
+        tienda = empresa.Tienda.objects.filter(administrador__user_ptr_id=user.id).first()
         print tienda
-        confi = models.Labor.objects.filter(empleado__tienda=tienda,estado=True,cerrado=False)
+        consulta_tiempo = """select EXTRACT(EPOCH FROM "operacion_labor"."ini")"""
+        confi = models.Labor.objects.filter(empleado__tienda__administrador__user_ptr_id=user.id,estado=True,cerrado=False).extra(select={'tiempo':consulta_tiempo})
         return confi
 
     @method_decorator(csrf_exempt)
@@ -112,6 +126,35 @@ class EditLabor(View):
 # end class
 
 
+class AddWsLabor(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super(AddWsLabor, self).dispatch(*args, **kwargs)
+    # end def
+
+    def post(self, request, *args, **kwargs):
+        print request.POST,kwargs
+        usu = request.POST.get('usuario', False)
+        if usu:
+            print 1
+            lab = models.Labor.objects.filter(empleado__id=int(usu), estado=True, cerrado=False).first()
+            if lab:
+                return HttpResponse('[{"status":false,"mensaje":"Tiene una labor asignada"}]', content_type='application/json', status=200)
+            #end if
+            empleado = usuario.Empleado.objects.filter(id=int(usu), estado=True).first()
+            if empleado:
+                labor = models.Labor(empleado=empleado, ini=timezone.now(), estado=True, cerrado=False)
+                labor.save()
+                return HttpResponse('[{"status":true}]', content_type='application/json', status=200)
+            # end if
+            return HttpResponse('[{"status":false,"mensaje":"Usuario sin acceso"}]', content_type='application/json', status=200)
+        # end if
+        print 3
+        return HttpResponse('[{"status":false}]', content_type='application/json', status=202)
+    # end def
+# end class
+
+
 class DeleteLabor(View):
     @method_decorator(csrf_exempt)
     def dispatch(self, *args, **kwargs):
@@ -133,5 +176,13 @@ class DeleteLabor(View):
         # end if
         print 3
         return HttpResponse('[{"status":false}]', content_type='application/json', status=202)
+    # end def
+# end class
+
+
+class Labores(TemplateView):
+    def dispatch(self, request, *args, **kwargs):
+        print '**************************************************'
+        return render(request, 'operacion/empleados_tienda.html')
     # end def
 # end class

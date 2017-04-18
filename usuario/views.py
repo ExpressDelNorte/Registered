@@ -36,13 +36,13 @@ class LoginEmpleado(View):
         return super(LoginEmpleado, self).dispatch(*args, **kwargs)
     # end def
 
-    def get(self, request, *args, **kwargs):
-        username = request.GET.get('user', False)
-        passw = request.GET.get('pass', False)
+    def post(self, request, *args, **kwargs):
+        username = request.POST.get('user', False)
+        passw = request.POST.get('pass', False)
         if username and passw:
             user = authenticate(username=username, password=passw)
             if user is not None:
-                return HttpResponse('[{"status":true}]', content_type='application/json', status=200)
+                return HttpResponse('[{"status":true,"id":%d}]'%(user.id), content_type='application/json', status=200)
             # end if
         # end if
         return HttpResponse('[{"status":false}]', content_type='application/json', status=202)
