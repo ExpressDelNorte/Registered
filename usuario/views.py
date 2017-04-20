@@ -39,12 +39,16 @@ class LoginEmpleado(View):
     def post(self, request, *args, **kwargs):
         username = request.POST.get('user', False)
         passw = request.POST.get('pass', False)
+        print 'Usuario---> ',username,'  ',passw
         if username and passw:
+            print 'Usuario---> 1'
             user = authenticate(username=username, password=passw)
             if user is not None:
+                print 'Usuario---> 2'
                 return HttpResponse('[{"status":true,"id":%d}]'%(user.id), content_type='application/json', status=200)
             # end if
         # end if
+        print 'Usuario---> 3'
         return HttpResponse('[{"status":false}]', content_type='application/json', status=202)
     # end def
 # end class

@@ -16,6 +16,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect, get_object_or_404, HttpResponse
 from empresa import models as empresa
 from django.utils import timezone
+from datetime import datetime
 from usuario import models as usuario
 
 
@@ -67,8 +68,8 @@ class AddLabor(supra.SupraFormView):
 class ListLabor(supra.SupraListView):
     model = models.Labor
     search_key = 'q'
-    list_display = ['id','empleado','ini','nombre','apellidos','identificacion','id_emp','tiempo','servicios']
-    search_fields = ['id']
+    list_display = ['id','empleado','ini','nombre','apellidos','identificacion','id_emp','tiempo','servicios','usuario']
+    search_fields = ['id','empleado__first_name','empleado__last_name','empleado__identificacion','empleado__username']
     paginate_by = 10
 
     class Renderer:
@@ -76,10 +77,11 @@ class ListLabor(supra.SupraListView):
         apellidos = 'empleado__last_name'
         identificacion = 'empleado__identificacion'
         id_emp = 'empleado__id'
+        usuario ='empleado__username'
     # end class
 
     def servicios(self, obj, row):
-        edit = "/operacion/edit/labor/%d/" % (obj.id)
+        edit = "/operacion/edit/labor/"
         return {'edit': edit}
     # end def
 
@@ -102,13 +104,12 @@ class ListLabor(supra.SupraListView):
 class EditLabor(View):
     @method_decorator(csrf_exempt)
     def dispatch(self, *args, **kwargs):
+        print '**************************************???'
         return super(EditLabor, self).dispatch(*args, **kwargs)
     # end def
 
-    def get(self, request, *args, **kwargs):
-        print request,kwargs
-        labor=kwargs['pk']
-        empleado = request.GET.get('empleado', False)
+    def post(self, request, *args, **kwargs):
+        labor = request.POST.get('id', False)
         if labor:
             print 1
             lab = models.Labor.objects.filter(id=labor).first()
@@ -143,7 +144,8 @@ class AddWsLabor(View):
             #end if
             empleado = usuario.Empleado.objects.filter(id=int(usu), estado=True).first()
             if empleado:
-                labor = models.Labor(empleado=empleado, ini=timezone.now(), estado=True, cerrado=False)
+                print 'Hora en python ---->',timezone.now(),datetime.today()
+                labor = models.Labor(empleado=empleado,ini=timezone.now(), estado=True, cerrado=False)
                 labor.save()
                 return HttpResponse('[{"status":true}]', content_type='application/json', status=200)
             # end if

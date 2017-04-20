@@ -1,6 +1,7 @@
 {% extends "Registered/base.html" %}
 {% load staticfiles %}
 {% block javascript %}
+  <script type="text/javascript" src="{% static 'operacion/js/cerrarLabor.js' %}"></script>
   <script type="text/javascript" src="{% static 'operacion/js/tabla_labores.js' %}"></script>
   <script type="text/javascript" src="{% static 'operacion/js/labores.js' %}"></script>
 {% endblock %}
@@ -15,14 +16,9 @@
       <div class="card-stacked">
         <div class="card-content">
           <div class="row">
-          <div class="input-field col s4 m4" id="sel_empresa">
-
-          </div>
-          <div class="input-field col s4 m4">
-
-          </div>
-          <div class="input-field col s4 m4">
-
+          <div class="input-field col s12 m12" id="sel_empresa">
+            <input  id="busqueda" type="text" >
+            <label class="active" for="busqueda">Busqueda</label>
           </div>
           </div>
         </div>
@@ -80,6 +76,36 @@
     </div>
     <div class="modal-footer">
       <a href="{% url 'usuario:login_empleado' %}" class="modal-action waves-effect waves-green btn-flat addlabor">Iniciar Sesión</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
+    </div>
+  </div>
+  <div id="cerrarlaborc" class="modal modal-fixed-footer">
+    <div class="modal-content row">
+      <h4>Cerrar Turno</h4>
+      <div id="contenidoc">
+        <form class="col s12" id="form_laborc" action="{% url 'operacion:ws_labor' %}">
+            <div class="row">
+              <div class="input-field col s12 m8">
+                <input placeholder="Placeholder" id="userc" type="text" class="validate">
+                <label for="userc">Usuario</label>
+              </div>
+            <div class="row">
+              <div class="input-field col s12 m8">
+                <input id="passwordc" type="password" class="validate">
+                <label for="passwordc">Contraseña</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m8">
+                <label for="mensajec"></label>
+              </div>
+            </div>
+      </div>
+    </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="{% url 'usuario:login_empleado' %}" class="modal-action waves-effect waves-green btn-flat editlabor sendLabor">Iniciar Sesión</a>
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
     </div>
   </div>

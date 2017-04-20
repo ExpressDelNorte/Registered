@@ -7,10 +7,11 @@ $(document).on('ready', function(){
     //       $('#id_empleado').material_select();
     //       $('#addempleado').modal('open');
     // });
-    document.getElementById('form_labor').reset()
+    //document.getElementById('form_labor').reset()
     $('#form_labor label[for="mensaje"]').text("");
     var user =$('#user').val(),
         pass = $('#password').val();
+        console.log("proceso de autenticacion "+user+"  "+pass);
     $.ajax({
       url:$(this).attr('href'),
       type:'post',
