@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from supra import views as supra
 import forms
 import models
@@ -19,6 +18,9 @@ from django.shortcuts import redirect, get_object_or_404, HttpResponse
 from empresa import models as empresa
 from operacion import models as operacion
 from django.views.generic import TemplateView
+from django.views.generic.edit import BaseFormView
+from empresa import models as empresa
+
 
 
 class GeneralCliente(TemplateView):
@@ -50,6 +52,50 @@ class LoginEmpleado(View):
         # end if
         print 'Usuario---> 3'
         return HttpResponse('[{"status":false}]', content_type='application/json', status=202)
+    # end def
+# end class
+
+
+class Login(BaseFormView):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super(Login, self).dispatch(*args, **kwargs)
+    # end def
+
+    def get(self, request, *args, **kwargs):
+        return render(request,'usuario/login.html',{})
+    #end def
+
+    def post(self, request, *args, **kwargs):
+        print request.POST
+        username = request.POST.get('user', False)
+        passw = request.POST.get('pass', False)
+        print 'Usuario---> ',username,'  ',passw
+        if username and passw:
+            print 'Usuario---> 1'
+            user = authenticate(username=username, password=passw)
+            if user is not None:
+                print 'Usuario---> 2'
+                login(request, user)
+                administrador = models.Administrador.objects.filter(id=user.id)
+                if administrador:
+                    print 'administrador---> 2'
+                    return redirect('operacion:labores')
+                #end if
+                supervisor = empresa.Supervisor.objects.filter(id=user.id)
+                if supervisor:
+                    print 'Suervisor---> 3'
+                    return redirect('usuario:view_empleados')
+                #end if
+                if user.is_superuser :
+                    print 'Admin---> 3'
+                    return redirect('/admin')
+                #end if
+                return redirect('usuario:login')
+            # end if
+        # end if
+        print 'Usuario---> 3'
+        return redirect('usuario:login')
     # end def
 # end class
 

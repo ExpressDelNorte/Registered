@@ -6,10 +6,31 @@ from empresa import models as empresa
 from usuario import models as usuario
 
 # Create your models here.
+
+class DiaSemana(models.Model):
+    nombre = models.CharField(max_length=30)
+    valor = models.IntegerField()
+    estado = models.BooleanField(default=True)
+
+    def __unicode__(self):
+        return u'%s'%self.nombre
+
+    #end def
+    def __str__(self):
+        return u'%s'%self.nombre
+    #end def
+
+    class Meta:
+        verbose_name = 'Dia de la semana'
+        verbose_name_plural = 'Dias de la semana'
+    #end class
+#end class
+
+
 class Configuracion(models.Model):
     empresa = models.ForeignKey(empresa.Empresa)
-    ordinario = models.FloatField()
-    fincho = models.FloatField()
+    valor = models.FloatField()
+    dias = models.ManyToManyField(DiaSemana)
     estado = models.BooleanField(default=True)
 
     def __unicode__(self):
@@ -21,8 +42,8 @@ class Configuracion(models.Model):
     # end def
 
     class Meta:
-        verbose_name ='Configuracion'
-        verbose_name_plural ='Configuraciones'
+        verbose_name ='Configuracion pago por tienda'
+        verbose_name_plural ='Configuraciones pago por tienda'
     #end class
 #end class
 

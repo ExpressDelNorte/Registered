@@ -184,7 +184,6 @@ class DeleteLabor(View):
 
 class Labores(TemplateView):
     def dispatch(self, request, *args, **kwargs):
-        print '**************************************************'
         return render(request, 'operacion/empleados_tienda.html')
     # end def
 # end class

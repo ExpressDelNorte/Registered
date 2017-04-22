@@ -12,7 +12,16 @@ from django.utils import timezone
 class ConfiguracionForm(forms.ModelForm):
     class Meta:
         model = models.Configuracion
-        fields = ['empresa','ordinario','fincho']
+        fields = ['empresa','dias','valor']
+        exclude = ['estado']
+    #end class
+#end class
+
+
+class DiaSemanaForm(forms.ModelForm):
+    class Meta:
+        model = models.DiaSemana
+        fields = ['nombre', 'valor']
         exclude = ['estado']
     #end class
 #end class
@@ -21,14 +30,20 @@ class ConfiguracionForm(forms.ModelForm):
 class ConfiguracionFormView(forms.ModelForm):
     class Meta:
         model = models.Configuracion
-        fields = ['ordinario','fincho']
+        fields = ['empresa','dias','valor']
         exclude = ['estado']
     #end class
+
+    def __init__(self, *args, **kwargs):
+        super(ConfiguracionFormView, self).__init__(*args, **kwargs)
+        user = CuserMiddleware.get_user()
+        self.fields['empresa'].queryset = empresa.Empresa.objects.filter(supervisor__user_ptr_id=user.id)
+    # end def
 
     def save(self, commit = True):
         conf = super(ConfiguracionFormView, self).save(commit=False)
         user = CuserMiddleware.get_user()
-        conf.empresa= empresa.Empresa.objects.filter(tienda__empleado__user_ptr_id=user.id).first()
+        #conf.empresa= empresa.Empresa.objects.filter(tienda__empleado__user_ptr_id=user.id).first()
         return conf
     #end def
 #end class
@@ -86,7 +101,7 @@ class LaborFormView(forms.ModelForm):
         super(LaborFormView, self).__init__(*args, **kwargs)
         user = CuserMiddleware.get_user()
         if user:
-            self.fields['empleado'].queryset = usuario.Empleado.objects.filter(tienda__empresa__supervisor__user_ptr_id=user.id)
+            self.fields['empleado'].queryset = usuario.Empleado.objects.filter(supervisor__user_ptr_id=user.id)
         #end if
     # end def
 

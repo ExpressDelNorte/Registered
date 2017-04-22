@@ -19,3 +19,9 @@ urlpatterns = [
 urlpatterns += [
     url(r'^view/empleados/$',login_required(views.GeneralCliente.as_view()), name='view_empleados'),
 ]
+
+
+#Inicio de session
+urlpatterns += [
+    url(r'^login/$',views.Login.as_view(), name='login'),
+]

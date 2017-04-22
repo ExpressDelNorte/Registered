@@ -17,6 +17,10 @@ border{
   font-size: 12px;
 }
 
+#close{
+  margin-top: 20px;
+}
+
 .login-box{
   background-color: white;
   border: 1px solid #edeeee;

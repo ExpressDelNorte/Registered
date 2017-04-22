@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'cuser.middleware.CuserMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
 ]
 
 ROOT_URLCONF = 'Registered.urls'
@@ -138,9 +139,10 @@ USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
+LOGIN_URL = 'usuario:login'
+LOGIN_REDIRECT_URL = 'usuario:login'
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/dark/express/Registered/static/'
+STATIC_ROOT = '/home/dark/express/temporal/Registered/static/'
 MEDIA_URL = '/media/'
-HOST_MEDIA = '/home/dark/express/Registered/media/'
-MEDIA_ROOT = '/home/dark/express/Registered/media/'
+HOST_MEDIA = '/home/dark/express/temporal/Registered/media/'
+MEDIA_ROOT = '/home/dark/express/temporal/Registered/media/'
