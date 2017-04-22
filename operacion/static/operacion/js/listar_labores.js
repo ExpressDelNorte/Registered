@@ -29,7 +29,7 @@ function listLabores(){
         dataType:'json',
         success:function(data){
           console.log(data);
-          var emp = $('#labores');
+          var emp = $('body');
           emp.html("");
           var resul = data.object_list;
           if(resul.length){
@@ -59,9 +59,9 @@ function listLabores(){
                     tiempo = resul[i].tiempo,
                     usuario = resul[i].usuario,
                     temporal="";
-                    var sucu="";
-                     sucu=+'<div class="col s12 m12 l12 cajaIn ">';
-          					emp.append("<div class=\"row\">"+nombre+"</div>");
+                     //temporal=+'<div class="col s12 m12 l12 cajaIn">jajaja</div>';
+                     temporal=+'<div class="eso">jajaja</div>';
+          					//emp.append("<div class=\"col s12 m12 l12 cajaIn \">"+nombre+"</div>");
           					// temporal=+"<div class=\"col s12 m12 l12 caja\" >";
           					// temporal=+"<div class=\"row\">";
           					// temporal=+"<div class=\"col s9 m9 l9 datos\" >";
@@ -71,15 +71,15 @@ function listLabores(){
           					// temporal=+"<div class=\"col s4 m4 l4\">Duracion:"+parseFloat(calcularTiempo(inicio, fecha_Actual)).toFixed(2)+"</div>";
           					// temporal=+"</div>";
           					// temporal=+"</div>";
-          					// temporal=+"<div class=\"col s1 m1 l1\" id=\"boton_edit\">";
+          					// temporal=+"<div class=\"col s1 m1 l1\" >";
           					// temporal=+"<a class=\"btn-floating btn-large waves-effect waves-light #4db6ac\"><i class=\"material-icons\">phonelink_lock</i></a>";
           					// temporal=+"</div>";
           					// temporal=+"</div>";
-          					// temporal=+"</div><!--end clas col id caja-->";
           					// temporal=+"</div>";
           					// temporal=+"</div>";
-                    console.log(sucu);
-                    //emp.append("<div class=\"col s12 m12 l12 cajaIn\">"+nombre+"</div>");
+          					// temporal=+"</div>";
+                    console.log(temporal);
+                    emp.append(temporal);
                 }
             }
             //my_cronos = setInterval(function(){ actualizarTiempos(); }, 2000);

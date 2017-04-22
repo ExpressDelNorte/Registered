@@ -80,7 +80,7 @@ class Login(BaseFormView):
                 administrador = models.Administrador.objects.filter(id=user.id)
                 if administrador:
                     print 'administrador---> 2'
-                    return redirect('operacion:labores')
+                    return redirect('operacion:movil_labores')
                 #end if
                 supervisor = empresa.Supervisor.objects.filter(id=user.id)
                 if supervisor:
